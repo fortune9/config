@@ -1,0 +1,59 @@
+#!/bin/bash
+
+set -e
+
+sudo apt install -y pass
+sudo apt install -y pinentry-tty
+
+echo '# install pass-git-helper'
+cat >>$HOME/.bashrc <<EOF
+
+# Add setup for pass-git-helper
+GPG_TTY=\$(tty)
+export GPG_TTY
+EOF
+
+wget https://github.com/languitar/pass-git-helper/archive/refs/tags/v1.1.1.tar.gz
+tar -xzf v1.1.1.tar.gz
+cd pass-git-helper-1.1.1
+pip install .
+cd ..
+git config --global credential.helper '!pass-git-helper $@'
+git config --global credential.https://github.com.useHttpPath true
+git config --global credential.https://github.com.username fortune9
+
+echo 'Setup git-pass-helper'
+iniFile=$HOME/.config/pass-git-helper/git-pass-mapping.ini
+mkdir -p `dirname $iniFile`
+passId=github/fortune9
+cat >$iniFile <<EOF
+[github.com/fortune9/*]
+target=$passId
+
+[github.com/Zymo-Research/*]
+target=$passId
+
+EOF
+
+
+echo Ggenerate gpg keys
+gpgf=$HOME/.gnupg/gpg-agent.conf
+mkdir -p `dirname $gpgf`
+touch $gpgf
+cat >>$gpgf <<EOF
+pinentry-program `which pinentry-tty`
+EOF
+## reload the config
+gpg-connect-agent reloadagent /bye
+gpg --generate-key
+
+
+echo  Encrypt passwords
+pass init "Zhenguo Zhang <zhangz.sci@gmail.com>"
+pass insert $passId
+
+echo Done!
+
+#*********************************************************
+
+#*********************************************************

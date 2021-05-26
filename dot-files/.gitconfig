@@ -1,0 +1,8 @@
+[credential]
+	helper = !pass-git-helper $@
+[user]
+	name = Zhenguo Zhang
+	email = zhangz.sci@gmail.com
+[credential "https://github.com"]
+	username = fortune9
+	useHttpPath = true
