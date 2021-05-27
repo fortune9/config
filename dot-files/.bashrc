@@ -134,3 +134,4 @@ unset __conda_setup
 # Add setup for pass-git-helper
 GPG_TTY=$(tty)
 export GPG_TTY
+export PATH=/home/ubuntu/tools/extra/tmp-work/bin:$PATH

@@ -38,3 +38,14 @@ options(
   ),
   usethis.destdir = "E:/programming/R"
 )
+
+# set enrivonment
+Sys.setenv(TAR="/bin/tar")
+options(unzip="/usr/bin/unzip")
+dir.create("~/tools/extra/RLib", showWarnings = F, recursive=T)
+.libPaths(c("~/tools/extra/RLib", .libPaths()))
+local({
+  r <- getOption("repos")
+  r["CRAN"] <- "https://cloud.r-project.org"
+  options(repos = r)
+})
