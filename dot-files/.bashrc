@@ -135,3 +135,12 @@ unset __conda_setup
 GPG_TTY=$(tty)
 export GPG_TTY
 export PATH=/home/ubuntu/tools/extra/tmp-work/bin:$PATH
+
+# User functions
+## change to a path using backslash as path separators
+function wcd () {
+   echo "input path: $1"
+   newDir=$(echo "$1" | tr '\\' '/' | sed -e 's!^\(\w\):!/mnt/\L\1!')
+   cd "$newDir"
+}
+
