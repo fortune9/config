@@ -19,6 +19,7 @@ cd pass-git-helper-1.1.1
 pip install .
 cd ..
 git config --global credential.helper '!pass-git-helper $@'
+# for gitlab, please change accordingly
 git config --global credential.https://github.com.useHttpPath true
 git config --global credential.https://github.com.username fortune9
 
@@ -51,6 +52,8 @@ gpg --generate-key
 echo  Encrypt passwords
 pass init "Zhenguo Zhang <zhangz.sci@gmail.com>"
 pass insert $passId
+
+# re-login to make new environment variables take effect.
 
 echo Done!
 
