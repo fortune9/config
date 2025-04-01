@@ -16,6 +16,22 @@ require("lazy").setup({
         vim.api.nvim_set_keymap('i', '<C-J>', 'copilot#Accept("<CR>")', { expr = true, silent = true })
       end,
   },
+  -- Quick search and jump
+  {
+    "folke/flash.nvim",
+    event = "VeryLazy",
+    version = "v2.1.0",
+  ---@type Flash.Config
+    opts = {},
+  },
+  -- Show keybindings when typing
+  {
+    "folke/which-key.nvim",
+    event = "VeryLazy",
+    config = function()
+      require("which-key").setup()
+    end,
+  },
   -- File explorer
   {
     "nvim-tree/nvim-tree.lua",
@@ -216,7 +232,7 @@ vim.cmd("syntax on")
 vim.cmd("filetype plugin indent on")
 
 -- Set colorscheme
-vim.cmd("colorscheme industry")
+--vim.cmd("colorscheme industry")
 vim.cmd("colorscheme catppuccin-mocha")
 
 -- Automatically copy selected text to clipboard
